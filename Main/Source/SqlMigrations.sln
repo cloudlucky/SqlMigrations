@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlMigrations.Data.Migrations", "SqlMigrations.Data.Migrations\SqlMigrations.Data.Migrations.csproj", "{BA0436D5-7982-4CE7-A5BF-8BE4613AA581}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlMigrations.Data.Migrations.Tests", "SqlMigrations.Data.Migrations.Tests\SqlMigrations.Data.Migrations.Tests.csproj", "{72A7AAD3-5C53-4871-9720-443BBE9DA63B}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs19
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = SqlMigrations.Data.Migrations\\SqlMigrations.Data.Migrations.csproj
+		SccProjectName1 = SqlMigrations.Data.Migrations
+		SccLocalPath1 = SqlMigrations.Data.Migrations
+		SccProjectUniqueName2 = SqlMigrations.Data.Migrations.Tests\\SqlMigrations.Data.Migrations.Tests.csproj
+		SccProjectName2 = SqlMigrations.Data.Migrations.Tests
+		SccLocalPath2 = SqlMigrations.Data.Migrations.Tests
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BA0436D5-7982-4CE7-A5BF-8BE4613AA581}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA0436D5-7982-4CE7-A5BF-8BE4613AA581}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA0436D5-7982-4CE7-A5BF-8BE4613AA581}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA0436D5-7982-4CE7-A5BF-8BE4613AA581}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72A7AAD3-5C53-4871-9720-443BBE9DA63B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72A7AAD3-5C53-4871-9720-443BBE9DA63B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72A7AAD3-5C53-4871-9720-443BBE9DA63B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72A7AAD3-5C53-4871-9720-443BBE9DA63B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
