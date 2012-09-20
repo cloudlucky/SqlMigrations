@@ -5,9 +5,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlMigrations.Data.Migratio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlMigrations.Data.Migrations.Tests", "SqlMigrations.Data.Migrations.Tests\SqlMigrations.Data.Migrations.Tests.csproj", "{72A7AAD3-5C53-4871-9720-443BBE9DA63B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{508E830C-AB20-49E5-BC32-71E80C97B7AA}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlMigrations.Data.Migrations.SqlServer", "SqlMigrations.Data.Migrations.SqlServer\SqlMigrations.Data.Migrations.SqlServer.csproj", "{BBDA4A9A-CE37-4961-A9A7-9B4243C5B026}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
+		SccNumberOfProjects = 4
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs19
 		SccLocalPath0 = .
@@ -17,6 +26,9 @@ Global
 		SccProjectUniqueName2 = SqlMigrations.Data.Migrations.Tests\\SqlMigrations.Data.Migrations.Tests.csproj
 		SccProjectName2 = SqlMigrations.Data.Migrations.Tests
 		SccLocalPath2 = SqlMigrations.Data.Migrations.Tests
+		SccProjectUniqueName3 = SqlMigrations.Data.Migrations.SqlServer\\SqlMigrations.Data.Migrations.SqlServer.csproj
+		SccProjectName3 = SqlMigrations.Data.Migrations.SqlServer
+		SccLocalPath3 = SqlMigrations.Data.Migrations.SqlServer
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +43,10 @@ Global
 		{72A7AAD3-5C53-4871-9720-443BBE9DA63B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72A7AAD3-5C53-4871-9720-443BBE9DA63B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72A7AAD3-5C53-4871-9720-443BBE9DA63B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBDA4A9A-CE37-4961-A9A7-9B4243C5B026}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBDA4A9A-CE37-4961-A9A7-9B4243C5B026}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBDA4A9A-CE37-4961-A9A7-9B4243C5B026}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBDA4A9A-CE37-4961-A9A7-9B4243C5B026}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

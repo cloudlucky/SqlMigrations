@@ -3,5 +3,7 @@
     public interface IMigrationMetadata
     {
         long Id { get; }
+
+        string Name { get; }
     }
 }

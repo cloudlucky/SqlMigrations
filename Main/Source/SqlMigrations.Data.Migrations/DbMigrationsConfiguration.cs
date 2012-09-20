@@ -1,6 +1,9 @@
 ﻿namespace SqlMigrations.Data.Migrations
 {
+    using System.Collections.Generic;
     using System.Configuration;
+
+    using SqlMigrations.Data.Migrations.Sql;
 
     public class DbMigrationsConfiguration
     {

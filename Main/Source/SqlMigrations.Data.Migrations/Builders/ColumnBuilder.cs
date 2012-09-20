@@ -8,7 +8,7 @@ namespace SqlMigrations.Data.Migrations.Builders
     {
         public ColumnModel Int(bool? nullable = null, bool identity = false, int? defaultValue = null, string defaultValueSql = null, string name = null, string storeType = null)
         {
-            throw new NotImplementedException();
+            return new ColumnModel { IsIdentity = identity }; // TODO
         }
     }
 }

@@ -8,5 +8,8 @@ namespace SqlMigrations.Data.Migrations.Models
 {
     public class ColumnModel
     {
+        public virtual string Name { get; set; }
+
+        public virtual bool IsIdentity { get; set; }
     }
 }
