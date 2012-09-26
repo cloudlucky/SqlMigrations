@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SqlMigrations.Data.Migrations.Models
+﻿namespace SqlMigrations.Data.Migrations.Models
 {
+    using System.Collections.Generic;
+
+    using NLib;
+
     public class CreateTableOperation : MigrationOperation
     {
         private readonly string name;
 
         private readonly List<ColumnModel> columns = new List<ColumnModel>();
+
+        private AddPrimaryKeyOperation primaryKey;
 
         public CreateTableOperation(string name, object anonymousArguments)
             : base(anonymousArguments)
@@ -28,9 +28,29 @@ namespace SqlMigrations.Data.Migrations.Models
             get { return this.columns; }
         }
 
+        public override MigrationOperation Inverse
+        {
+            get { return new DropTableOperation(this.Name, (object)null); }
+        }
+
         public override bool IsDestructiveChange
         {
             get { return false; }
+        }
+
+        public AddPrimaryKeyOperation PrimaryKey
+        {
+            get
+            {
+                return this.primaryKey;
+            }
+
+            set
+            {
+                CheckError.ArgumentNullException(value != null, "value != null");
+                this.primaryKey = value;
+                this.primaryKey.Table = this.Name;
+            }
         }
     }
 }

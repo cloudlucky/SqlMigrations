@@ -43,7 +43,7 @@
                 {
                     Id = c.Int(identity: true)
                 })
-                /*.PrimaryKey(x => x.Id)*/;
+                .PrimaryKey(x => x.Id);
         }
 
         long IMigrationMetadata.Id
