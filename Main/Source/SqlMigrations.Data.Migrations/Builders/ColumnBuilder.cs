@@ -23,7 +23,7 @@ namespace SqlMigrations.Data.Migrations.Builders
 
         public ColumnModel DateTime(bool? nullable = null, byte? precision = null, DateTime? defaultValue = null, string defaultValueSql = null, string name = null, string storeType = null)
         {
-            throw new NotImplementedException();
+            return BuildColumn(nullable: nullable, precision: precision, defaultValue: defaultValue, defaultValueSql: defaultValueSql, name: name, storeType: storeType);
         }
 
         public ColumnModel Decimal(bool? nullable = null, byte? precision = null, byte? scale = null, Decimal? defaultValue = null, string defaultValueSql = null, string name = null, string storeType = null, bool identity = false)
@@ -58,12 +58,12 @@ namespace SqlMigrations.Data.Migrations.Builders
 
         public ColumnModel Long(bool? nullable = null, bool identity = false, long? defaultValue = null, string defaultValueSql = null, string name = null, string storeType = null)
         {
-            throw new NotImplementedException();
+            return BuildColumn(nullable: nullable, identity: identity, defaultValue: defaultValue, defaultValueSql: defaultValueSql, name: name, storeType: storeType);
         }
 
         public ColumnModel String(bool? nullable = null, int? maxLength = null, bool? fixedLength = null, bool? isMaxLength = null, bool? unicode = null, string defaultValue = null, string defaultValueSql = null, string name = null, string storeType = null)
         {
-            throw new NotImplementedException();
+            return BuildColumn(nullable: nullable, maxLength: maxLength, fixedLength: fixedLength/*, isMaxLength: isMaxLength*/, unicode: unicode, defaultValue: defaultValue, defaultValueSql: defaultValueSql, name: name, storeType: storeType);
         }
 
         public ColumnModel Time(bool? nullable = null, byte? precision = null, TimeSpan? defaultValue = null, string defaultValueSql = null, string name = null, string storeType = null)

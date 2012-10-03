@@ -1,6 +1,7 @@
 ﻿namespace SqlMigrations.Data.Migrations
 {
     using System;
+    using System.Collections.Generic;
     using System.Data.Common;
     using System.Linq;
 
@@ -23,31 +24,57 @@
 
         public override void Update()
         {
-            var migrations = this.Configuration.GetType().Assembly.GetTypes()
-                .Where(x => !x.IsAbstract && x.IsSubclassOf(typeof(DbMigration)))
+            this.EnsureHistory();
+
+            ExecuteUpdate(GetMigrations(this.configuration), this.configuration);
+        }
+
+        private static IEnumerable<DbMigration> GetMigrations(DbMigrationsConfiguration configuration)
+        {
+            return configuration.MigrationsAssemblies
+                .SelectMany(x => x.GetTypes())
+                .Where(x => !x.IsAbstract && x.IsSubclassOf(typeof(DbMigration)) && x.GetInterfaces().Any(y => y == typeof(IMigrationMetadata)))
                 .Select(Activator.CreateInstance)
+                .Cast<IMigrationMetadata>()
+                .OrderBy(x => x.Id)
                 .Cast<DbMigration>()
                 .ToList();
+        }
 
-            var sqlGenerator = DbMigrationSqlGeneratorFactory.GetSqlGenerator(this.configuration.ProviderName);
+        private static void ExecuteUpdate(IEnumerable<DbMigration> migrations, DbMigrationsConfiguration configuration, bool addHistory = true)
+        {
+            var sqlGenerator = DbMigrationSqlGeneratorFactory.GetSqlGenerator(configuration.ProviderName);
+            var dbFactory = DbProviderFactories.GetFactory(configuration.ProviderName);
 
-            foreach (var migration in migrations)
+            using (var connection = dbFactory.CreateConnection())
             {
-                migration.Up();
-                var statements = sqlGenerator.Generate(migration.Operations, string.Empty);
+                connection.ConnectionString = configuration.ConnectionString;
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = System.Data.CommandType.Text;
+                connection.Open();
 
-                var dbFactory = DbProviderFactories.GetFactory(this.configuration.ProviderName);
-
-                foreach(var statement in statements)
+                foreach (var migration in migrations)
                 {
-                    using (var connection = dbFactory.CreateConnection())
+                    try
                     {
-                        connection.ConnectionString = this.configuration.ConnectionString;
-                        var cmd = connection.CreateCommand();
-                        cmd.CommandText = statement.Sql;
-                        cmd.CommandType = System.Data.CommandType.Text;
-                        connection.Open();
-                        cmd.ExecuteNonQuery();
+                        migration.Up();
+                        var statements = sqlGenerator.Generate(migration.Operations, string.Empty);
+
+                        foreach (var statement in statements)
+                        {
+                            cmd.CommandText = statement.Sql;
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        if (addHistory)
+                        {
+                            // TODO add History Row
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        migration.Down();
+                        throw;
                     }
                 }
             }
@@ -56,6 +83,13 @@
         public override void Update(int targetMigration)
         {
             throw new NotImplementedException();
+        }
+
+        private void EnsureHistory()
+        {
+            var internalConfiguration = new DbMigrationsConfiguration(this.configuration.ConnectionString, this.configuration.ProviderName);
+
+            ExecuteUpdate(GetMigrations(internalConfiguration), internalConfiguration, false);
         }
     }
 }

@@ -41,7 +41,7 @@
                 "Foo",
                 c => new
                 {
-                    Id = c.Int(identity: true)
+                    Id = c.Int(nullable: false, identity: true)
                 })
                 .PrimaryKey(x => x.Id);
         }

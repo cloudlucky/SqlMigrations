@@ -57,11 +57,16 @@
   <ItemGroup>
     <Compile Include="Builders\ColumnBuilder.cs" />
     <Compile Include="Builders\TableBuilder.cs" />
+    <Compile Include="Extensions\AssemblyExtensions.cs" />
     <Compile Include="Extensions\ExpressionExtensions.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="History\HistoryDbMigration.cs" />
     <Compile Include="Models\AddPrimaryKeyOperation.cs" />
+    <Compile Include="Models\CreateTableIfNotExistsOperation.cs" />
     <Compile Include="Models\DropPrimaryKeyOperation.cs" />
     <Compile Include="Models\DropTableOperation.cs" />
+    <Compile Include="Models\HistoryOperation.cs" />
+    <Compile Include="Models\InsertHistoryOperation.cs" />
     <Compile Include="Models\PrimaryKeyOperation.cs" />
     <Compile Include="Sql\DbMigrationSqlGeneratorFactory.cs" />
     <Compile Include="DbMigration.cs" />

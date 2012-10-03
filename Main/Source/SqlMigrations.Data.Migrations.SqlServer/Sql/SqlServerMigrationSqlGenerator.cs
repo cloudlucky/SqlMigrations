@@ -41,35 +41,55 @@ namespace SqlMigrations.Data.Migrations.SqlServer.Sql
         {
             using (var writer = Writer())
             {
-                writer.WriteLine("CREATE TABLE [dbo].[" + createTableOperation.Name + "] (");
-                ++writer.Indent;
+                this.Generate(createTableOperation, writer);
 
-                var columnCount = 0;
-                foreach (var column in createTableOperation.Columns)
+                this.Statement(writer);
+            }
+        }
+
+        private void Generate(CreateTableOperation createTableOperation, IndentedTextWriter writer)
+        {
+            writer.WriteLine("CREATE TABLE [dbo].[" + createTableOperation.Name + "] (");
+            ++writer.Indent;
+
+            var columnCount = 0;
+            foreach (var column in createTableOperation.Columns)
+            {
+                if (columnCount > 0)
                 {
-                    if (columnCount > 0)
-                    {
-                        writer.Write(',');
-                    }
-
-                    this.Generate(column, writer);
-                    writer.WriteLine();
-
-                    ++columnCount;
+                    writer.Write(',');
                 }
 
-                if (createTableOperation.PrimaryKey != null)
-                {
-                    writer.Write(",");
-                    writer.Write("CONSTRAINT ");
-                    writer.Write(this.Quote(createTableOperation.PrimaryKey.Name));
-                    writer.Write(" PRIMARY KEY (");
-                    writer.Write(createTableOperation.PrimaryKey.Columns.Join(this.Quote, ", "));
-                    writer.WriteLine(")");
-                }
+                this.Generate(column, writer);
+                writer.WriteLine();
 
-                --writer.Indent;
+                ++columnCount;
+            }
+
+            if (createTableOperation.PrimaryKey != null)
+            {
+                writer.Write(",");
+                writer.Write("CONSTRAINT ");
+                writer.Write(this.Quote(createTableOperation.PrimaryKey.Name));
+                writer.Write(" PRIMARY KEY (");
+                writer.Write(createTableOperation.PrimaryKey.Columns.Join(this.Quote, ", "));
                 writer.WriteLine(")");
+            }
+
+            --writer.Indent;
+            writer.WriteLine(")");
+        }
+
+        protected virtual void Generate(CreateTableIfNotExistsOperation createTableOperation)
+        {
+            using (var writer = Writer())
+            {
+                writer.WriteLine("IF OBJECT_ID('" + this.Quote(createTableOperation.Name) + "') IS NULL");
+                writer.WriteLine("BEGIN");
+                ++writer.Indent;
+                this.Generate((CreateTableOperation)createTableOperation, writer);
+                --writer.Indent;
+                writer.WriteLine("END");
 
                 this.Statement(writer);
             }
@@ -77,7 +97,22 @@ namespace SqlMigrations.Data.Migrations.SqlServer.Sql
 
         private void Generate(ColumnModel column, IndentedTextWriter writer)
         {
-            writer.Write("[" + column.Name + "] [int] IDENTITY(1, 1) NOT NULL");
+            writer.Write(this.Quote(column.Name));
+            writer.Write(" " + this.Quote("int"));
+
+            if (column.IsIdentity)
+            {
+                writer.Write(" IDENTITY(1, 1)");
+            }
+
+            if (!column.IsNullable.HasValue || column.IsNullable.Value)
+            {
+                writer.Write(" NULL");
+            }
+            else
+            {
+                writer.Write(" NOT NULL");
+            }
         }
 
         protected virtual string Quote(string identifier)

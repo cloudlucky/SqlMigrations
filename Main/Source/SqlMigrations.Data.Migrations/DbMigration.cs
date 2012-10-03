@@ -24,6 +24,11 @@
             throw new NotImplementedException();
         }
 
+        protected internal void AddColumnIfNotExists(string table, string name, Func<ColumnBuilder, ColumnModel> columnAction, object anonymousArguments = null)
+        {
+            throw new NotImplementedException();
+        }
+
         protected void AddForeignKey(string dependentTable, string dependentColumn, string principalTable, string principalColumn = null, bool cascadeDelete = false, string name = null, object anonymousArguments = null)
         {
             throw new NotImplementedException();
@@ -62,6 +67,19 @@
         protected TableBuilder<TColumns> CreateTable<TColumns>(string name, Func<ColumnBuilder, TColumns> columnsAction, object anonymousArguments = null)
         {
             var createTableOperation = new CreateTableOperation(name, anonymousArguments);
+
+            return this.CreateTableBuilder(createTableOperation, columnsAction);
+        }
+
+        protected TableBuilder<TColumns> CreateTableIfNotExists<TColumns>(string name, Func<ColumnBuilder, TColumns> columnsAction, object anonymousArguments = null)
+        {
+            var createTableOperation = new CreateTableIfNotExistsOperation(name, anonymousArguments);
+
+            return this.CreateTableBuilder(createTableOperation, columnsAction);
+        }
+
+        private TableBuilder<TColumns> CreateTableBuilder<TColumns>(CreateTableOperation createTableOperation, Func<ColumnBuilder, TColumns> columnsAction)
+        {
             this.operations.Add(createTableOperation);
 
             var columns = columnsAction(new ColumnBuilder());
@@ -123,6 +141,11 @@
         }
 
         protected void DropTable(string name, object anonymousArguments = null)
+        {
+            this.operations.Add(new DropTableOperation(name, anonymousArguments));
+        }
+
+        protected void DropTableIfExists(string name, object anonymousArguments = null)
         {
             throw new NotImplementedException();
         }

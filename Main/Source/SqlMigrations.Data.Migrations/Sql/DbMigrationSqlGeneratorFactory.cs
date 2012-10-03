@@ -23,7 +23,7 @@
             MigrationSqlGenerator migrationSqlGenerator;
             if (sqlGenerators.TryGetValue(providerInvariantName, out migrationSqlGenerator))
             {
-                return migrationSqlGenerator;
+                return (MigrationSqlGenerator)Activator.CreateInstance(migrationSqlGenerator.GetType()); // TODO Fixme
             }
 
             throw new Exception("No SQL Generator found for provider " + providerInvariantName); // TODO Throw better exception

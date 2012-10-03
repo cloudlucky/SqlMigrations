@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Configuration;
+    using System.Reflection;
 
     using SqlMigrations.Data.Migrations.Sql;
 
@@ -9,6 +10,7 @@
     {
         protected DbMigrationsConfiguration()
         {
+            this.MigrationsAssemblies = new List<Assembly> { this.GetType().Assembly };
         }
 
         public DbMigrationsConfiguration(ConnectionStringSettings connectionString)
@@ -17,10 +19,13 @@
         }
 
         public DbMigrationsConfiguration(string connectionString, string providerName)
+            : this()
         {
             this.ConnectionString = connectionString;
             this.ProviderName = providerName;
         }
+
+        public ICollection<Assembly> MigrationsAssemblies { get; private set; }
 
         public string ConnectionString { get; protected set; }
 

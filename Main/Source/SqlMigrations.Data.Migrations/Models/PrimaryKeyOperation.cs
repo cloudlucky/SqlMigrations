@@ -3,7 +3,6 @@
     using System.Collections.Generic;
 
     using NLib;
-    using NLib.Extensions;
 
     public abstract class PrimaryKeyOperation : MigrationOperation
     {
@@ -18,7 +17,7 @@
         {
         }
 
-        public ICollection<string> Columns
+        public IList<string> Columns
         {
             get { return this.columns; }
         }
