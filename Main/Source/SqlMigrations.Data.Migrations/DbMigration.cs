@@ -15,6 +15,13 @@
             get { return this.operations; }
         }
 
+        protected Version DatabaseVersion { get; private set; }
+
+        internal void SetDatabaseVersion(Version version)
+        {
+            this.DatabaseVersion = version;
+        }
+
         public abstract void Down();
 
         public abstract void Up();

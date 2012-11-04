@@ -47,6 +47,7 @@
       <HintPath>..\packages\nlib.1.5.46.10632\lib\NLib.Web.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -56,8 +57,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegisterSqlServerGenerator.cs" />
+    <Compile Include="Extensions\RegisterSqlServerGenerator.cs" />
+    <Compile Include="SqlServerDbMigrationsConfiguration.cs" />
+    <Compile Include="Sql\SqlServerMigrationSqlConfiguration.cs" />
     <Compile Include="Sql\SqlServerMigrationSqlGenerator.cs" />
+    <Compile Include="Sql\SqlServerMigrationSqlInspection.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SqlMigrations.Data.Migrations\SqlMigrations.Data.Migrations.csproj">

@@ -6,6 +6,7 @@
 
     using SqlMigrations.Data.Migrations.Infrastructure;
     using SqlMigrations.Data.Migrations.Sql;
+    using SqlMigrations.Data.Migrations.SqlServer;
     using SqlMigrations.Data.Migrations.SqlServer.Sql;
 
     [TestClass]
@@ -19,12 +20,11 @@
         }
     }
 
-    public class MyDbConfiguration : DbMigrationsConfiguration
+    public class MyDbConfiguration : SqlServerDbMigrationsConfiguration
     {
         public MyDbConfiguration(ConnectionStringSettings connectionString)
             : base(connectionString)
         {
-            DbMigrationSqlGeneratorFactory.SetSqlGenerator("System.Data.SqlClient", new SqlServerMigrationSqlGenerator()); 
         }
     }
 

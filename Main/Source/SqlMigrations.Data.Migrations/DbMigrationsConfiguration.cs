@@ -4,8 +4,6 @@
     using System.Configuration;
     using System.Reflection;
 
-    using SqlMigrations.Data.Migrations.Sql;
-
     public class DbMigrationsConfiguration
     {
         protected DbMigrationsConfiguration()

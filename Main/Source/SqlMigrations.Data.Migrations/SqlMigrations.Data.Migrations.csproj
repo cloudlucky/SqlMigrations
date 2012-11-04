@@ -68,7 +68,7 @@
     <Compile Include="Models\HistoryOperation.cs" />
     <Compile Include="Models\InsertHistoryOperation.cs" />
     <Compile Include="Models\PrimaryKeyOperation.cs" />
-    <Compile Include="Sql\DbMigrationSqlGeneratorFactory.cs" />
+    <Compile Include="Sql\DbMigrationSqlConfigurationFactory.cs" />
     <Compile Include="DbMigration.cs" />
     <Compile Include="DbMigrationsConfiguration.cs" />
     <Compile Include="DbMigrator.cs" />
@@ -78,7 +78,9 @@
     <Compile Include="Models\CreateTableOperation.cs" />
     <Compile Include="Models\MigrationOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sql\MigrationSqlConfiguration.cs" />
     <Compile Include="Sql\MigrationSqlGenerator.cs" />
+    <Compile Include="Sql\MigrationSqlInspection.cs" />
     <Compile Include="Sql\MigrationStatement.cs" />
     <Compile Include="Writers\IndentedTextWriter.cs" />
   </ItemGroup>

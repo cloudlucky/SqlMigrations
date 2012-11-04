@@ -43,7 +43,7 @@
 
         private static void ExecuteUpdate(IEnumerable<DbMigration> migrations, DbMigrationsConfiguration configuration, bool addHistory = true)
         {
-            var sqlGenerator = DbMigrationSqlGeneratorFactory.GetSqlGenerator(configuration.ProviderName);
+            var sqlConfiguration = DbMigrationSqlConfigurationFactory.GetSqlConfiguration(configuration.ProviderName);
             var dbFactory = DbProviderFactories.GetFactory(configuration.ProviderName);
 
             using (var connection = dbFactory.CreateConnection())
@@ -57,8 +57,9 @@
                 {
                     try
                     {
+                        migration.SetDatabaseVersion(sqlConfiguration.SqlInspection.GetDatabaseVersion());
                         migration.Up();
-                        var statements = sqlGenerator.Generate(migration.Operations, string.Empty);
+                        var statements = sqlConfiguration.SqlGenerator.Generate(migration.Operations, string.Empty);
 
                         foreach (var statement in statements)
                         {
