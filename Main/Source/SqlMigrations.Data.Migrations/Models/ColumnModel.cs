@@ -8,6 +8,13 @@ namespace SqlMigrations.Data.Migrations.Models
 {
     public class ColumnModel
     {
+        public ColumnModel(Type type)
+        {
+            this.ClrType = type;
+        }
+
+        public Type ClrType { get; private set; }
+
         public virtual string Name { get; set; }
 
         public virtual string StoreType { get; set; }

@@ -1,6 +1,7 @@
 namespace SqlMigrations.Data.Migrations.Builders
 {
     using System;
+    using System.Xml.Linq;
 
     using SqlMigrations.Data.Migrations.Models;
 
@@ -23,7 +24,7 @@ namespace SqlMigrations.Data.Migrations.Builders
 
         public ColumnModel DateTime(bool? nullable = null, byte? precision = null, DateTime? defaultValue = null, string defaultValueSql = null, string name = null, string storeType = null)
         {
-            return BuildColumn(nullable: nullable, precision: precision, defaultValue: defaultValue, defaultValueSql: defaultValueSql, name: name, storeType: storeType);
+            return BuildColumn(typeof(DateTime), nullable: nullable, precision: precision, defaultValue: defaultValue, defaultValueSql: defaultValueSql, name: name, storeType: storeType);
         }
 
         public ColumnModel Decimal(bool? nullable = null, byte? precision = null, byte? scale = null, Decimal? defaultValue = null, string defaultValueSql = null, string name = null, string storeType = null, bool identity = false)
@@ -53,17 +54,17 @@ namespace SqlMigrations.Data.Migrations.Builders
 
         public ColumnModel Int(bool? nullable = null, bool identity = false, int? defaultValue = null, string defaultValueSql = null, string name = null, string storeType = null)
         {
-            return BuildColumn(nullable: nullable, identity: identity, defaultValue: defaultValue, defaultValueSql: defaultValueSql, name: name, storeType: storeType);
+            return BuildColumn(typeof(int), nullable: nullable, identity: identity, defaultValue: defaultValue, defaultValueSql: defaultValueSql, name: name, storeType: storeType);
         }
 
         public ColumnModel Long(bool? nullable = null, bool identity = false, long? defaultValue = null, string defaultValueSql = null, string name = null, string storeType = null)
         {
-            return BuildColumn(nullable: nullable, identity: identity, defaultValue: defaultValue, defaultValueSql: defaultValueSql, name: name, storeType: storeType);
+            return BuildColumn(typeof(long), nullable: nullable, identity: identity, defaultValue: defaultValue, defaultValueSql: defaultValueSql, name: name, storeType: storeType);
         }
 
         public ColumnModel String(bool? nullable = null, int? maxLength = null, bool? fixedLength = null, bool? isMaxLength = null, bool? unicode = null, string defaultValue = null, string defaultValueSql = null, string name = null, string storeType = null)
         {
-            return BuildColumn(nullable: nullable, maxLength: maxLength, fixedLength: fixedLength/*, isMaxLength: isMaxLength*/, unicode: unicode, defaultValue: defaultValue, defaultValueSql: defaultValueSql, name: name, storeType: storeType);
+            return BuildColumn(typeof(string), nullable: nullable, maxLength: maxLength, fixedLength: fixedLength/*, isMaxLength: isMaxLength*/, unicode: unicode, defaultValue: defaultValue, defaultValueSql: defaultValueSql, name: name, storeType: storeType);
         }
 
         public ColumnModel Time(bool? nullable = null, byte? precision = null, TimeSpan? defaultValue = null, string defaultValueSql = null, string name = null, string storeType = null)
@@ -86,9 +87,14 @@ namespace SqlMigrations.Data.Migrations.Builders
         //    throw new NotImplementedException();
         //}
 
-        private static ColumnModel BuildColumn(bool? nullable, object defaultValue, string defaultValueSql = null, int? maxLength = null, byte? precision = null, byte? scale = null, bool? unicode = null, bool? fixedLength = null, bool identity = false, bool timestamp = false, string name = null, string storeType = null)
+        public ColumnModel Xml(bool? nullable = null, XDocument defaultValue = null, string defaultValueSql = null, string name = null, string storeType = null)
         {
-            return new ColumnModel
+            throw new NotImplementedException();
+        }
+
+        private static ColumnModel BuildColumn(Type clrType, bool? nullable, object defaultValue, string defaultValueSql = null, int? maxLength = null, byte? precision = null, byte? scale = null, bool? unicode = null, bool? fixedLength = null, bool identity = false, bool timestamp = false, string name = null, string storeType = null)
+        {
+            return new ColumnModel(clrType)
             {
                 IsNullable = nullable,
                 MaxLength = maxLength,

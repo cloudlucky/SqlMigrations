@@ -4,9 +4,10 @@
     using System.Collections.Generic;
 
     using SqlMigrations.Data.Migrations.Builders;
+    using SqlMigrations.Data.Migrations.Infrastructure;
     using SqlMigrations.Data.Migrations.Models;
 
-    public abstract class DbMigration
+    public abstract class DbMigration : IDbMigration, IMigrationMetadata
     {
         private readonly List<MigrationOperation> operations = new List<MigrationOperation>();
 
@@ -15,12 +16,7 @@
             get { return this.operations; }
         }
 
-        protected Version DatabaseVersion { get; private set; }
-
-        internal void SetDatabaseVersion(Version version)
-        {
-            this.DatabaseVersion = version;
-        }
+        public Version DatabaseVersion { get; internal set; }
 
         public abstract void Down();
 
@@ -176,5 +172,9 @@
         {
             throw new NotImplementedException();
         }
+
+        public abstract long Id { get; }
+
+        public abstract string Name { get; }
     }
 }

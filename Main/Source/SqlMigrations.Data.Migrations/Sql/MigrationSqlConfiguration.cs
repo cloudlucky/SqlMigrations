@@ -7,10 +7,12 @@
             this.Confirguration = confirguration;
         }
 
-        protected DbMigrationsConfiguration Confirguration { get; private set; }
+        public DbMigrationsConfiguration Confirguration { get; private set; }
 
         public abstract MigrationSqlGenerator SqlGenerator { get; }
 
         public abstract MigrationSqlInspection SqlInspection { get; }
+
+        public abstract MigrationHistoryRepository HistoryRepository { get; }
     }
 }

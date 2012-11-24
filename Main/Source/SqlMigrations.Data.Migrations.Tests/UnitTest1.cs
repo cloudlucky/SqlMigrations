@@ -28,7 +28,7 @@
         }
     }
 
-    public class CreateDropTableMigration : DbMigration, IMigrationMetadata
+    public class CreateDropTableMigration : DbMigration
     {
         public override void Down()
         {
@@ -46,12 +46,12 @@
                 .PrimaryKey(x => x.Id);
         }
 
-        long IMigrationMetadata.Id
+        public override long Id
         {
             get { return 1; }
         }
 
-        public string Name
+        public override string Name
         {
             get { return "FirstMigration"; }
         }

@@ -6,10 +6,13 @@
     {
         private readonly MigrationSqlInspection inspection;
 
+        private readonly MigrationHistoryRepository historyRepository;
+
         public SqlServerMigrationSqlConfiguration(DbMigrationsConfiguration confirguration)
             : base(confirguration)
         {
             this.inspection = new SqlServerMigrationSqlInspection(confirguration);
+            this.historyRepository = new SqlServerMigrationHistoryRepository(confirguration);
         }
 
         public override MigrationSqlGenerator SqlGenerator
@@ -20,6 +23,11 @@
         public override MigrationSqlInspection SqlInspection
         {
             get { return this.inspection; }
+        }
+
+        public override MigrationHistoryRepository HistoryRepository
+        {
+            get { return this.historyRepository; }
         }
     }
 }

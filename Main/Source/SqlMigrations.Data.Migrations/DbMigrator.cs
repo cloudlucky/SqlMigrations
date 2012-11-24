@@ -4,8 +4,11 @@
     using System.Collections.Generic;
     using System.Data.Common;
     using System.Linq;
+    using System.Reflection;
+    using System.Text;
 
     using SqlMigrations.Data.Migrations.Infrastructure;
+    using SqlMigrations.Data.Migrations.Models;
     using SqlMigrations.Data.Migrations.Sql;
 
     public class DbMigrator : MigratorBase
@@ -24,8 +27,6 @@
 
         public override void Update()
         {
-            this.EnsureHistory();
-
             ExecuteUpdate(GetMigrations(this.configuration), this.configuration);
         }
 
@@ -33,18 +34,20 @@
         {
             return configuration.MigrationsAssemblies
                 .SelectMany(x => x.GetTypes())
-                .Where(x => !x.IsAbstract && x.IsSubclassOf(typeof(DbMigration)) && x.GetInterfaces().Any(y => y == typeof(IMigrationMetadata)))
+                .Where(x => !x.IsAbstract && x.IsSubclassOf(typeof(DbMigration)))
                 .Select(Activator.CreateInstance)
-                .Cast<IMigrationMetadata>()
-                .OrderBy(x => x.Id)
                 .Cast<DbMigration>()
+                .OrderBy(x => x.Id)
                 .ToList();
         }
 
-        private static void ExecuteUpdate(IEnumerable<DbMigration> migrations, DbMigrationsConfiguration configuration, bool addHistory = true)
+        private static void ExecuteUpdate(IEnumerable<DbMigration> migrations, DbMigrationsConfiguration configuration)
         {
             var sqlConfiguration = DbMigrationSqlConfigurationFactory.GetSqlConfiguration(configuration.ProviderName);
+            sqlConfiguration.HistoryRepository.CreateTableIfNotExists();
+
             var dbFactory = DbProviderFactories.GetFactory(configuration.ProviderName);
+            var version = Assembly.GetExecutingAssembly().GetName().Version;
 
             using (var connection = dbFactory.CreateConnection())
             {
@@ -57,20 +60,27 @@
                 {
                     try
                     {
-                        migration.SetDatabaseVersion(sqlConfiguration.SqlInspection.GetDatabaseVersion());
+                        var statementBuilder = new StringBuilder();
+                        migration.DatabaseVersion = sqlConfiguration.SqlInspection.GetDatabaseVersion();
                         migration.Up();
-                        var statements = sqlConfiguration.SqlGenerator.Generate(migration.Operations, string.Empty);
+                        var statements = sqlConfiguration.SqlGenerator.Generate(migration.Operations, string.Empty, migration.DatabaseVersion);
 
                         foreach (var statement in statements)
                         {
+                            statementBuilder.Append(statement.Sql);
                             cmd.CommandText = statement.Sql;
                             cmd.ExecuteNonQuery();
                         }
 
-                        if (addHistory)
-                        {
-                            // TODO add History Row
-                        }
+                        var history = new HistoryModel
+                            {
+                                CreatedOn = DateTime.Now,
+                                GeneratedSql = statementBuilder.ToString(),
+                                Id = migration.Id,
+                                Name = migration.Name,
+                                ProductVersion = version
+                            };
+                        sqlConfiguration.HistoryRepository.InsertHitory(history);
                     }
                     catch (Exception ex)
                     {
@@ -84,13 +94,6 @@
         public override void Update(int targetMigration)
         {
             throw new NotImplementedException();
-        }
-
-        private void EnsureHistory()
-        {
-            var internalConfiguration = new DbMigrationsConfiguration(this.configuration.ConnectionString, this.configuration.ProviderName);
-
-            ExecuteUpdate(GetMigrations(internalConfiguration), internalConfiguration, false);
         }
     }
 }

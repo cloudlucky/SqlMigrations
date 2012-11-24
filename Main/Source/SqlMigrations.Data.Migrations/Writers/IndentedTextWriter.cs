@@ -284,5 +284,10 @@
             this._writer.WriteLine(value);
             this._tabsPending = true;
         }
+
+        public override string ToString()
+        {
+            return this.InnerWriter.ToString();
+        }
     }
 }
