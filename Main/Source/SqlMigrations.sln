@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlMigrations.Data.Migrations", "SqlMigrations.Data.Migrations\SqlMigrations.Data.Migrations.csproj", "{BA0436D5-7982-4CE7-A5BF-8BE4613AA581}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlMigrations.Data.Migrations.Tests", "SqlMigrations.Data.Migrations.Tests\SqlMigrations.Data.Migrations.Tests.csproj", "{72A7AAD3-5C53-4871-9720-443BBE9DA63B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{508E830C-AB20-49E5-BC32-71E80C97B7AA}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
@@ -13,6 +11,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{508E83
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlMigrations.Data.Migrations.SqlServer", "SqlMigrations.Data.Migrations.SqlServer\SqlMigrations.Data.Migrations.SqlServer.csproj", "{BBDA4A9A-CE37-4961-A9A7-9B4243C5B026}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7FEBCF06-7D1D-489A-A006-DD4DB0B99BA1}"
+	ProjectSection(SolutionItems) = preProject
+		Build.proj = Build.proj
+		Build.ps1 = Build.ps1
+		CustomDictionary.xml = CustomDictionary.xml
+		License.txt = License.txt
+		packages.config = packages.config
+		Settings.StyleCop = Settings.StyleCop
+		SqlMigrations.Doc.shfbproj = SqlMigrations.Doc.shfbproj
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E5876A2A-14B1-4C17-9E9B-80856DFDD831}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlMigrations.Data.Migrations.Tests", "Tests\SqlMigrations.Data.Migrations.Tests\SqlMigrations.Data.Migrations.Tests.csproj", "{72A7AAD3-5C53-4871-9720-443BBE9DA63B}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
@@ -23,12 +36,13 @@ Global
 		SccProjectUniqueName1 = SqlMigrations.Data.Migrations\\SqlMigrations.Data.Migrations.csproj
 		SccProjectName1 = SqlMigrations.Data.Migrations
 		SccLocalPath1 = SqlMigrations.Data.Migrations
-		SccProjectUniqueName2 = SqlMigrations.Data.Migrations.Tests\\SqlMigrations.Data.Migrations.Tests.csproj
-		SccProjectName2 = SqlMigrations.Data.Migrations.Tests
-		SccLocalPath2 = SqlMigrations.Data.Migrations.Tests
-		SccProjectUniqueName3 = SqlMigrations.Data.Migrations.SqlServer\\SqlMigrations.Data.Migrations.SqlServer.csproj
-		SccProjectName3 = SqlMigrations.Data.Migrations.SqlServer
-		SccLocalPath3 = SqlMigrations.Data.Migrations.SqlServer
+		SccProjectUniqueName2 = SqlMigrations.Data.Migrations.SqlServer\\SqlMigrations.Data.Migrations.SqlServer.csproj
+		SccProjectName2 = SqlMigrations.Data.Migrations.SqlServer
+		SccLocalPath2 = SqlMigrations.Data.Migrations.SqlServer
+		SccProjectUniqueName3 = Tests\\SqlMigrations.Data.Migrations.Tests\\SqlMigrations.Data.Migrations.Tests.csproj
+		SccProjectTopLevelParentUniqueName3 = SqlMigrations.sln
+		SccProjectName3 = Tests/SqlMigrations.Data.Migrations.Tests
+		SccLocalPath3 = Tests\\SqlMigrations.Data.Migrations.Tests
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,16 +53,19 @@ Global
 		{BA0436D5-7982-4CE7-A5BF-8BE4613AA581}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA0436D5-7982-4CE7-A5BF-8BE4613AA581}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA0436D5-7982-4CE7-A5BF-8BE4613AA581}.Release|Any CPU.Build.0 = Release|Any CPU
-		{72A7AAD3-5C53-4871-9720-443BBE9DA63B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{72A7AAD3-5C53-4871-9720-443BBE9DA63B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{72A7AAD3-5C53-4871-9720-443BBE9DA63B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{72A7AAD3-5C53-4871-9720-443BBE9DA63B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BBDA4A9A-CE37-4961-A9A7-9B4243C5B026}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BBDA4A9A-CE37-4961-A9A7-9B4243C5B026}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBDA4A9A-CE37-4961-A9A7-9B4243C5B026}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBDA4A9A-CE37-4961-A9A7-9B4243C5B026}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72A7AAD3-5C53-4871-9720-443BBE9DA63B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72A7AAD3-5C53-4871-9720-443BBE9DA63B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72A7AAD3-5C53-4871-9720-443BBE9DA63B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72A7AAD3-5C53-4871-9720-443BBE9DA63B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{72A7AAD3-5C53-4871-9720-443BBE9DA63B} = {E5876A2A-14B1-4C17-9E9B-80856DFDD831}
 	EndGlobalSection
 EndGlobal

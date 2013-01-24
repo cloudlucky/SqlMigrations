@@ -2,6 +2,8 @@
 {
     using System.Configuration;
 
+    using SqlMigrations.Data.Migrations.SqlServer.Extensions;
+
     public class SqlServerDbMigrationsConfiguration : DbMigrationsConfiguration
     {
         public SqlServerDbMigrationsConfiguration(ConnectionStringSettings connectionString)

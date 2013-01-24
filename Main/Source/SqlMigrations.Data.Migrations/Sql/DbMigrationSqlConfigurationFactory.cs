@@ -11,14 +11,14 @@
 
         public static void SetSqlConfiguration(string providerInvariantName, MigrationSqlConfiguration migrationSqlConfiguration)
         {
-            CheckError.ArgumentNullException(providerInvariantName, "providerInvariantName");
-            CheckError.ArgumentNullException(migrationSqlConfiguration, "migrationSqlConfiguration");
+            Check.Current.ArgumentNullException(providerInvariantName, "providerInvariantName");
+            Check.Current.ArgumentNullException(migrationSqlConfiguration, "migrationSqlConfiguration");
             sqlConfigurations[providerInvariantName] = migrationSqlConfiguration;
         }
 
         public static MigrationSqlConfiguration GetSqlConfiguration(string providerInvariantName)
         {
-            CheckError.ArgumentNullException(providerInvariantName, "providerInvariantName");
+            Check.Current.ArgumentNullException(providerInvariantName, "providerInvariantName");
 
             MigrationSqlConfiguration migrationSqlConfiguration;
             if (sqlConfigurations.TryGetValue(providerInvariantName, out migrationSqlConfiguration))

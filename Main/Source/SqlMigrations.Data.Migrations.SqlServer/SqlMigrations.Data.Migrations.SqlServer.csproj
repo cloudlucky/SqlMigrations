@@ -23,28 +23,24 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\SqlMigrations.Data.Migrations.SqlServer.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NLib, Version=1.5.46.10632, Culture=neutral, PublicKeyToken=f678e1b79aac5c5b, processorArchitecture=MSIL">
+    <Reference Include="NLib, Version=2.1.1.23405, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\nlib.1.5.46.10632\lib\NLib.dll</HintPath>
-    </Reference>
-    <Reference Include="NLib.Practices.Unity">
-      <HintPath>..\packages\nlib.1.5.46.10632\lib\NLib.Practices.Unity.dll</HintPath>
-    </Reference>
-    <Reference Include="NLib.Web">
-      <HintPath>..\packages\nlib.1.5.46.10632\lib\NLib.Web.dll</HintPath>
+      <HintPath>..\packages\nlib.2.1.1.23405\lib\net45\NLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -58,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\GlobalSuppressions.cs" />
     <Compile Include="Extensions\RegisterSqlServerGenerator.cs" />
     <Compile Include="SqlServerDbMigrationsConfiguration.cs" />
     <Compile Include="Sql\SqlServerMigrationHistoryRepository.cs" />
@@ -73,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="SqlMigrations.Data.Migrations.SqlServer.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

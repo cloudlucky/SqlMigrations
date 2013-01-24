@@ -43,7 +43,7 @@
 
             set
             {
-                CheckError.ArgumentException(value != null, "value");
+                Check.Current.ArgumentException(value != null, "value");
                 this._writer.NewLine = value;
             }
         }

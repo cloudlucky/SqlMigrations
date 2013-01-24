@@ -47,7 +47,7 @@
 
             set
             {
-                CheckError.ArgumentNullException(value != null, "value != null");
+                Check.Current.ArgumentNullException(value != null, "value != null");
                 this.primaryKey = value;
                 this.primaryKey.Table = this.Name;
             }

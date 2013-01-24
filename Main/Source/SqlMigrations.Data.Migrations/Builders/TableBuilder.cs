@@ -33,7 +33,7 @@
 
         public TableBuilder<TColumns> PrimaryKey(Expression<Func<TColumns, object>> keyExpression, string name = null, object anonymousArguments = null)
         {
-            CheckError.ArgumentNullException(keyExpression, "keyExpression");
+            Check.Current.ArgumentNullException(keyExpression, "keyExpression");
 
             var addPrimaryKeyOperation = new AddPrimaryKeyOperation(anonymousArguments)
                 {

@@ -157,13 +157,13 @@
 
         protected void Statement(IndentedTextWriter writer)
         {
-            CheckError.ArgumentNullException(writer != null, "writer");
+            Check.Current.ArgumentNullException(writer != null, "writer");
             this.Statement(writer.ToString(), false);
         }
 
         protected void Statement(string sql, bool suppressTransaction = false)
         {
-            CheckError.ArgumentNullOrWhiteSpaceException(sql, "sql");
+            Check.Current.ArgumentNullOrWhiteSpaceException(sql, "sql");
             this.statements.Add(new MigrationStatement
             {
                 Sql = sql,

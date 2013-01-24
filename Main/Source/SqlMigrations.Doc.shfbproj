@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9ab5fb10-ac08-428d-b40c-91f825b78d6f}</ProjectGuid>
+    <SHFBSchemaVersion>1.9.5.0</SHFBSchemaVersion>
+    <!-- SHFB properties -->
+    <OutputPath>..\Output\Packages\SHFB\</OutputPath>
+    <HtmlHelpName>Documentation</HtmlHelpName>
+    <Language>en-US</Language>
+    <HelpFileFormat>HtmlHelp1</HelpFileFormat>
+    <FrameworkVersion>.NET Framework 4.0</FrameworkVersion>
+    <DocumentationSources>
+      <DocumentationSource sourceFile="SqlMigrations.Data.Migrations\SqlMigrations.Data.Migrations.csproj" xmlns="" />
+      <DocumentationSource sourceFile="SqlMigrations.Data.Migrations.SqlServer\SqlMigrations.Data.Migrations.SqlServer.csproj" xmlns="" />
+    </DocumentationSources>
+    <CopyrightText>Cloudlucky</CopyrightText>
+    <FeedbackEMailAddress>kevin.martin%40cloudlucky.com</FeedbackEMailAddress>
+    <HelpTitle>Sql Migrations Documented Class Library</HelpTitle>
+    <RootNamespaceContainer>True</RootNamespaceContainer>
+    <SyntaxFilters>CSharp, VisualBasic</SyntaxFilters>
+    <SdkLinkTarget>Blank</SdkLinkTarget>
+    <PresentationStyle>VS2010</PresentationStyle>
+    <Preliminary>False</Preliminary>
+    <NamingMethod>Guid</NamingMethod>
+    <ContentPlacement>AboveNamespaces</ContentPlacement>
+  </PropertyGroup>
+  <!-- Import the SHFB build targets -->
+  <Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" />
+</Project>

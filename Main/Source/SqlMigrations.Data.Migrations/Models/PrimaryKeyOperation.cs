@@ -42,7 +42,7 @@
 
             set
             {
-                CheckError.ArgumentNullException(!string.IsNullOrWhiteSpace(value), "!string.IsNullOrWhiteSpace(value)");
+                Check.Current.ArgumentNullException(!string.IsNullOrWhiteSpace(value), "!string.IsNullOrWhiteSpace(value)");
                 this.table = value;
             }
         }

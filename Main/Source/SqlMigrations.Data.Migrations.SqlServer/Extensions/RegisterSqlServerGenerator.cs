@@ -1,4 +1,4 @@
-﻿namespace SqlMigrations.Data.Migrations.SqlServer
+﻿namespace SqlMigrations.Data.Migrations.SqlServer.Extensions
 {
     using SqlMigrations.Data.Migrations.Sql;
     using SqlMigrations.Data.Migrations.SqlServer.Sql;
