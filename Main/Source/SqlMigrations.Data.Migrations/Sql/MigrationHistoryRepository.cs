@@ -16,20 +16,20 @@
 
         public abstract void CreateTableIfNotExists();
 
-        public virtual void InsertHitory(HistoryModel model)
+        public virtual void InsertHistory(HistoryModel model)
         {
             var dbFactory = DbProviderFactories.GetFactory(this.Configuration.ProviderName);
             using (var connection = dbFactory.CreateConnection())
             {
                 connection.ConnectionString = this.Configuration.ConnectionString;
                 var cmd = connection.CreateCommand();
-                this.FillInsertHitoryCommand(cmd, model);
+                this.FillInsertHistoryCommand(cmd, model);
                 connection.Open();
                 cmd.ExecuteNonQuery();
             }
         }
 
-        protected virtual void FillInsertHitoryCommand(DbCommand cmd, HistoryModel model)
+        protected virtual void FillInsertHistoryCommand(DbCommand cmd, HistoryModel model)
         {
             cmd.CommandType = CommandType.Text;
 

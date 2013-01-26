@@ -18,6 +18,9 @@
       (for example 'FileName' -> 'Filename').
     -->
     <Recognized>
+      <Word>Migrator</Word>
+      <Word>Scaffolded</Word>
+      <Word>Scaffolder</Word>
       <Word>Sqlmigrations</Word>
     </Recognized>
     <!--<Deprecated>-->
@@ -57,9 +60,10 @@
       -->
     </DiscreteExceptions>
   </Words>
-  <!--<Acronyms>
+  <Acronyms>
     <CasingExceptions>
+      <Acronym>Db</Acronym>
     </CasingExceptions>
-  </Acronyms>-->
+  </Acronyms>
 </Dictionary>
 

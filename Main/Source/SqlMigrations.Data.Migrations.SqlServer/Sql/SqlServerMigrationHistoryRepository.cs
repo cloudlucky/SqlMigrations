@@ -43,9 +43,9 @@
             }  
         }
 
-        protected override void FillInsertHitoryCommand(DbCommand cmd, Models.HistoryModel model)
+        protected override void FillInsertHistoryCommand(DbCommand cmd, Models.HistoryModel model)
         {
-            base.FillInsertHitoryCommand(cmd, model);
+            base.FillInsertHistoryCommand(cmd, model);
 
             cmd.CommandText = "INSERT INTO [__SqlMigrationsHistory] ([Id], [Name], [CreatedOn], [ProductVersion], [GeneratedSql]) VALUES (@Id, @Name, @CreatedOn, @ProductVersion, @GeneratedSql)";
         }

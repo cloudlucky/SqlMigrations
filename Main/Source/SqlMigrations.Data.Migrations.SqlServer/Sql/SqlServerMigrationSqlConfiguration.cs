@@ -8,11 +8,11 @@
 
         private readonly MigrationHistoryRepository historyRepository;
 
-        public SqlServerMigrationSqlConfiguration(DbMigrationsConfiguration confirguration)
-            : base(confirguration)
+        public SqlServerMigrationSqlConfiguration(DbMigrationsConfiguration configuration)
+            : base(configuration)
         {
-            this.inspection = new SqlServerMigrationSqlInspection(confirguration);
-            this.historyRepository = new SqlServerMigrationHistoryRepository(confirguration);
+            this.inspection = new SqlServerMigrationSqlInspection(configuration);
+            this.historyRepository = new SqlServerMigrationHistoryRepository(configuration);
         }
 
         public override MigrationSqlGenerator SqlGenerator

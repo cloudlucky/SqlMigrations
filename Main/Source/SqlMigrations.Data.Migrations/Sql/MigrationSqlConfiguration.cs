@@ -2,12 +2,12 @@
 {
     public abstract class MigrationSqlConfiguration
     {
-        protected MigrationSqlConfiguration(DbMigrationsConfiguration confirguration)
+        protected MigrationSqlConfiguration(DbMigrationsConfiguration configuration)
         {
-            this.Confirguration = confirguration;
+            this.Configuration = configuration;
         }
 
-        public DbMigrationsConfiguration Confirguration { get; private set; }
+        public DbMigrationsConfiguration Configuration { get; private set; }
 
         public abstract MigrationSqlGenerator SqlGenerator { get; }
 

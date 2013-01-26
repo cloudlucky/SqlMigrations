@@ -12,4 +12,8 @@ using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Microsoft.Design", "CA2210:AssembliesShouldHaveValidStrongNames", Scope = "", Target = "SqlMigrations.Data.Migrations.dll", Justification = "Reviewed. It's OK.")]
 
+[assembly: SuppressMessage("Microsoft.Design", "CA1020:AvoidNamespacesWithFewTypes", Scope = "namespace", Target = "SqlMigrations.Data.Migrations", Justification = "Reviewed. It's OK.")]
+[assembly: SuppressMessage("Microsoft.Design", "CA1020:AvoidNamespacesWithFewTypes", Scope = "namespace", Target = "SqlMigrations.Data.Migrations.Builders", Justification = "Reviewed. It's OK.")]
+[assembly: SuppressMessage("Microsoft.Design", "CA1020:AvoidNamespacesWithFewTypes", Scope = "namespace", Target = "SqlMigrations.Data.Migrations.Extensions", Justification = "Reviewed. It's OK.")]
+[assembly: SuppressMessage("Microsoft.Design", "CA1020:AvoidNamespacesWithFewTypes", Scope = "namespace", Target = "SqlMigrations.Data.Migrations.Infrastructure", Justification = "Reviewed. It's OK.")]
 [assembly: SuppressMessage("Microsoft.Design", "CA1020:AvoidNamespacesWithFewTypes", Scope = "namespace", Target = "SqlMigrations.Data.Migrations.Writers", Justification = "Reviewed. It's OK.")]

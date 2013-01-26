@@ -80,7 +80,7 @@
                                 Name = migration.Name,
                                 ProductVersion = version
                             };
-                        sqlConfiguration.HistoryRepository.InsertHitory(history);
+                        sqlConfiguration.HistoryRepository.InsertHistory(history);
                     }
                     catch (Exception ex)
                     {
