@@ -22,7 +22,6 @@
 
         public override IEnumerable<MigrationStatement> Generate(IEnumerable<MigrationOperation> migrationOperations, string providerManifestToken, Version databaseVersion)
         {
-
             this.typeMapping = new Dictionary<string, string>
                 {
                     { typeof(byte).Name, "tinyint" },
@@ -157,7 +156,7 @@
 
         protected void Statement(IndentedTextWriter writer)
         {
-            Check.Current.ArgumentNullException(writer != null, "writer");
+            Check.Current.ArgumentNullException(writer, "writer");
             this.Statement(writer.ToString(), false);
         }
 
