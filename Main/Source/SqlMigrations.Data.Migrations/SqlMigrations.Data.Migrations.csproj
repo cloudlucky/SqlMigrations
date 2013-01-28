@@ -61,7 +61,7 @@
     <Compile Include="Design\ScaffoldedMigration.cs" />
     <Compile Include="Extensions\AssemblyExtensions.cs" />
     <Compile Include="Extensions\ExpressionExtensions.cs" />
-    <Compile Include="Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="IDbMigration.cs" />
     <Compile Include="Models\AddPrimaryKeyOperation.cs" />
     <Compile Include="Models\CreateTableIfNotExistsOperation.cs" />

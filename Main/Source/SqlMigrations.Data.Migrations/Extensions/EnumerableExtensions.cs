@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SqlMigrations.Data.Migrations.Extensions
 {
-    public static class IEnumerableExtensions
+    public static class EnumerableExtensions
     {
         public static void Each<T>(this IEnumerable<T> ts, Action<T, int> action)
         {

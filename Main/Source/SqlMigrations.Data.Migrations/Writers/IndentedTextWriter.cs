@@ -16,7 +16,7 @@
         private readonly string _tabString;
         
         public IndentedTextWriter(TextWriter writer)
-            : this(writer, "    ")
+            : this(writer, DefaultTabString)
         {
         }
 
@@ -43,7 +43,7 @@
 
             set
             {
-                Check.Current.ArgumentException(value != null, "value");
+                Check.Current.ArgumentNullException(value, "value");
                 this._writer.NewLine = value;
             }
         }
@@ -174,15 +174,15 @@
             this._writer.Write(format, arg);
         }
 
-        public void WriteLineNoTabs(string s)
+        public void WriteLineNoTabs(string value)
         {
-            this._writer.WriteLine(s);
+            this._writer.WriteLine(value);
         }
 
-        public override void WriteLine(string s)
+        public override void WriteLine(string value)
         {
             this.OutputTabs();
-            this._writer.WriteLine(s);
+            this._writer.WriteLine(value);
             this._tabsPending = true;
         }
 
