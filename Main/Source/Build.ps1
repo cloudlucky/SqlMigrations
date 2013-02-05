@@ -11,7 +11,7 @@
     Prerequisite   : PowerShell V2 over Vista and upper.
 .LINK  
     Script posted over:  
-    http://nlib.codeplex.com  
+    http://sqlmigrations.codeplex.com  
 
 .EXAMPLE    
     build -target {All|Clean|Build|PrepareOutput|StyleCop|FxCop|Tests|Package} -configuration {Debug|Release}
