@@ -1,5 +1,5 @@
-Project: NLib
-Sources: http://nlib.codeplex.com/
+Project: Sql Migrations
+Sources: http://sqlmigrations.codeplex.com/
 Website: http://cloudlucky.com/
 
 --------------------------------
