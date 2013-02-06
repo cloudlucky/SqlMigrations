@@ -104,6 +104,10 @@
   </PropertyGroup>
 
   <UsingTask AssemblyFile="$(ToolsFolder)\MsBuildExtensionPack\4.0\MSBuild.ExtensionPack.dll" TaskName="MSBuild.ExtensionPack.Framework.AssemblyInfo"/>
+  <UsingTask AssemblyFile="$(ToolsFolder)\MsBuildExtensionPack\4.0\MSBuild.ExtensionPack.dll" TaskName="MSBuild.ExtensionPack.Compression.DNZip"/>
+  <UsingTask AssemblyFile="$(ToolsFolder)\MsBuildExtensionPack\4.0\MSBuild.ExtensionPack.dll" TaskName="MSBuild.ExtensionPack.Xml.XmlFile"/>
+  <UsingTask AssemblyFile="$(ToolsFolder)\MsBuildExtensionPack\4.0\MSBuild.ExtensionPack.dll" TaskName="MSBuild.ExtensionPack.Xml.XmlTask"/>
+  
   <Import Project="$(SourceFolder)\.nuget\nuget.targets" />
   <UsingTask AssemblyFile="$(xUnitFolder)\xunit.runner.msbuild.dll" TaskName="Xunit.Runner.MSBuild.xunit" />
   <UsingTask AssemblyFile="$(StyleCopFolder)\StyleCop.dll" TaskName="StyleCopTask"/>
