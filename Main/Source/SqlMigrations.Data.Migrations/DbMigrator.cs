@@ -33,6 +33,7 @@
         private static IEnumerable<DbMigration> GetMigrations(DbMigrationsConfiguration configuration)
         {
             return configuration.MigrationsAssemblies
+                .Concat(new[] { typeof(DbMigrator).Assembly })
                 .SelectMany(x => x.GetTypes())
                 .Where(x => !x.IsAbstract && x.IsSubclassOf(typeof(DbMigration)))
                 .Select(Activator.CreateInstance)
@@ -44,12 +45,11 @@
         private static void ExecuteUpdate(IEnumerable<DbMigration> migrations, DbMigrationsConfiguration configuration)
         {
             var sqlConfiguration = DbMigrationSqlConfigurationFactory.GetSqlConfiguration(configuration.ProviderName);
-            sqlConfiguration.HistoryRepository.CreateTableIfNotExists();
 
-            var dbFactory = DbProviderFactories.GetFactory(configuration.ProviderName);
+            var providerFactory = DbProviderFactories.GetFactory(configuration.ProviderName);
             var version = Assembly.GetExecutingAssembly().GetName().Version;
 
-            using (var connection = dbFactory.CreateConnection())
+            using (var connection = providerFactory.CreateConnection())
             {
                 connection.ConnectionString = configuration.ConnectionString;
                 var cmd = connection.CreateCommand();

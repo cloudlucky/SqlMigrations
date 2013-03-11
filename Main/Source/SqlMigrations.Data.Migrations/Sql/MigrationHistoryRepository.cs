@@ -14,8 +14,6 @@
 
         protected DbMigrationsConfiguration Configuration { get; private set; }
 
-        public abstract void CreateTableIfNotExists();
-
         public virtual void InsertHistory(HistoryModel model)
         {
             var dbFactory = DbProviderFactories.GetFactory(this.Configuration.ProviderName);

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SqlMigrations.Data.Migrations.Models
+﻿namespace SqlMigrations.Data.Migrations.Models
 {
+    using System;
+
     public class ColumnModel
     {
         public ColumnModel(Type type)
@@ -34,6 +30,8 @@ namespace SqlMigrations.Data.Migrations.Models
         public virtual string DefaultValueSql { get; set; }
 
         public virtual bool? IsFixedLength { get; set; }
+
+        public virtual bool? IsMaxLength { get; set; }
 
         public virtual bool? IsUnicode { get; set; }
 

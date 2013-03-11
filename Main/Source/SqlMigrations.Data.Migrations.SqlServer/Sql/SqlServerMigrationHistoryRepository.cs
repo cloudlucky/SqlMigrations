@@ -13,46 +13,17 @@
         {
         }
 
-        public override void CreateTableIfNotExists()
+        protected static IndentedTextWriter Writer()
         {
-            using (var writer = Writer())
-            {
-                writer.WriteLine("IF OBJECT_ID('[__SqlMigrationsHistory]') IS NULL");
-                writer.WriteLine("BEGIN");
-                ++writer.Indent;
-                writer.WriteLine("CREATE TABLE [dbo].[__SqlMigrationsHistory] (");
-                writer.WriteLine(" [Id] [bigint] NOT NULL,");
-                writer.WriteLine(" [Name] [nvarchar](MAX) NOT NULL,");
-                writer.WriteLine(" [CreatedOn] [datetime2](7) NOT NULL,");
-                writer.WriteLine(" [ProductVersion] [nvarchar](MAX) NOT NULL,");
-                writer.WriteLine(" [GeneratedSql] [nvarchar](MAX) NOT NULL,");
-                writer.WriteLine(" CONSTRAINT [PK___SqlMigrationsHistory] PRIMARY KEY CLUSTERED ([Id] ASC)");
-                writer.WriteLine(")");
-                --writer.Indent;
-                writer.WriteLine("END");
-                
-                var dbFactory = DbProviderFactories.GetFactory(this.Configuration.ProviderName);
-                using (var connection = dbFactory.CreateConnection())
-                {
-                    connection.ConnectionString = this.Configuration.ConnectionString;
-                    var cmd = connection.CreateCommand();
-                    cmd.CommandText = writer.ToString();
-                    connection.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }  
+            return new IndentedTextWriter(new StringWriter());
         }
 
         protected override void FillInsertHistoryCommand(DbCommand cmd, Models.HistoryModel model)
         {
             base.FillInsertHistoryCommand(cmd, model);
 
-            cmd.CommandText = "INSERT INTO [__SqlMigrationsHistory] ([Id], [Name], [CreatedOn], [ProductVersion], [GeneratedSql]) VALUES (@Id, @Name, @CreatedOn, @ProductVersion, @GeneratedSql)";
-        }
-
-        protected static IndentedTextWriter Writer()
-        {
-            return new IndentedTextWriter(new StringWriter());
+            cmd.CommandText = "INSERT INTO [__SqlMigrationsHistory] ([Id], [Name], [CreatedOn], [ProductVersion], [GeneratedSql])" 
+                            + "VALUES (@Id, @Name, @CreatedOn, @ProductVersion, @GeneratedSql)";
         }
     }
 }

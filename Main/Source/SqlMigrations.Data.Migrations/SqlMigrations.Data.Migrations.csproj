@@ -71,6 +71,7 @@
     <Compile Include="Models\HistoryOperation.cs" />
     <Compile Include="Models\InsertHistoryOperation.cs" />
     <Compile Include="Models\PrimaryKeyOperation.cs" />
+    <Compile Include="HistoryModelMigration.cs" />
     <Compile Include="Sql\DbMigrationSqlConfigurationFactory.cs" />
     <Compile Include="DbMigration.cs" />
     <Compile Include="DbMigrationsConfiguration.cs" />

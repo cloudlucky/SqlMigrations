@@ -25,7 +25,7 @@ namespace SqlMigrations.Data.Migrations.Builders
         /// <returns>The column definition.</returns>
         public ColumnModel Binary(bool? nullable = null, int? maxLength = null, bool? fixedLength = null, bool? isMaxLength = null, byte[] defaultValue = null, string defaultValueSql = null, bool timestamp = false, string name = null, string storeType = null)
         {
-            return BuildColumn(typeof(byte[]), nullable: nullable, maxLength: maxLength, fixedLength: fixedLength, /* isMaxLength: isMaxLength, */defaultValue: defaultValue, defaultValueSql: defaultValueSql, timestamp: timestamp, name: name, storeType: storeType);
+            return BuildColumn(typeof(byte[]), nullable: nullable, maxLength: maxLength, fixedLength: fixedLength, isMaxLength: isMaxLength, defaultValue: defaultValue, defaultValueSql: defaultValueSql, timestamp: timestamp, name: name, storeType: storeType);
         }
 
         /// <summary>
@@ -58,6 +58,21 @@ namespace SqlMigrations.Data.Migrations.Builders
         }
 
         /// <summary>
+        /// Creates a new column definition to store <see cref="char"/> data.
+        /// </summary>
+        /// <param name="nullable">Value indicating whether or not the column allows null values.</param>
+        /// <param name="unicode">Value indicating whether or not the column supports Unicode content.</param>
+        /// <param name="defaultValue">Constant value to use as the default value for this column.</param>
+        /// <param name="defaultValueSql">SQL expression used as the default value for this column.</param>
+        /// <param name="name">The name of the column.</param>
+        /// <param name="storeType">Provider specific data type to use for this column.</param>
+        /// <returns>The column definition.</returns>
+        public ColumnModel Char(bool? nullable = null, bool? unicode = null, char defaultValue = '\0', string defaultValueSql = null, string name = null, string storeType = null)
+        {
+            return BuildColumn(typeof(char), nullable: nullable, maxLength: 1/*, fixedLength: fixedLength, isMaxLength: isMaxLength*/, unicode: unicode, defaultValue: defaultValue, defaultValueSql: defaultValueSql, name: name, storeType: storeType);
+        }
+
+        /// <summary>
         /// Creates a new column definition to store <see cref="DateTime"/> data.
         /// </summary>
         /// <param name="nullable">Value indicating whether or not the column allows null values.</param>
@@ -70,6 +85,21 @@ namespace SqlMigrations.Data.Migrations.Builders
         public ColumnModel DateTime(bool? nullable = null, byte? precision = null, DateTime? defaultValue = null, string defaultValueSql = null, string name = null, string storeType = null)
         {
             return BuildColumn(typeof(DateTime), nullable: nullable, precision: precision, defaultValue: defaultValue, defaultValueSql: defaultValueSql, name: name, storeType: storeType);
+        }
+
+        /// <summary>
+        /// Creates a new column definition to store <see cref="DateTimeOffset"/> data.
+        /// </summary>
+        /// <param name="nullable">Value indicating whether or not the column allows null values.</param>
+        /// <param name="precision">The numeric precision of the column.</param>
+        /// <param name="defaultValue">Constant value to use as the default value for this column.</param>
+        /// <param name="defaultValueSql">SQL expression used as the default value for this column.</param>
+        /// <param name="name">The name of the column.</param>
+        /// <param name="storeType">Provider specific data type to use for this column.</param>
+        /// <returns>The column definition.</returns>
+        public ColumnModel DateTimeOffset(bool? nullable = null, byte? precision = null, DateTimeOffset? defaultValue = null, string defaultValueSql = null, string name = null, string storeType = null)
+        {
+            return BuildColumn(typeof(DateTimeOffset), nullable: nullable, precision: precision, defaultValue: defaultValue, defaultValueSql: defaultValueSql, name: name, storeType: storeType);
         }
 
         /// <summary>
@@ -210,21 +240,6 @@ namespace SqlMigrations.Data.Migrations.Builders
             return BuildColumn(typeof(TimeSpan), nullable: nullable, precision: precision, defaultValue: defaultValue, defaultValueSql: defaultValueSql, name: name, storeType: storeType);
         }
 
-        /// <summary>
-        /// Creates a new column definition to store <see cref="DateTimeOffset"/> data.
-        /// </summary>
-        /// <param name="nullable">Value indicating whether or not the column allows null values.</param>
-        /// <param name="precision">The numeric precision of the column.</param>
-        /// <param name="defaultValue">Constant value to use as the default value for this column.</param>
-        /// <param name="defaultValueSql">SQL expression used as the default value for this column.</param>
-        /// <param name="name">The name of the column.</param>
-        /// <param name="storeType">Provider specific data type to use for this column.</param>
-        /// <returns>The column definition.</returns>
-        public ColumnModel DateTimeOffset(bool? nullable = null, byte? precision = null, DateTimeOffset? defaultValue = null, string defaultValueSql = null, string name = null, string storeType = null)
-        {
-            return BuildColumn(typeof(DateTimeOffset), nullable: nullable, precision: precision, defaultValue: defaultValue, defaultValueSql: defaultValueSql, name: name, storeType: storeType);
-        }
-
         //public ColumnModel Geography(bool? nullable = null, DbGeography defaultValue = null, string defaultValueSql = null, string name = null, string storeType = null)
         //{
         //    throw new NotImplementedException();
@@ -261,12 +276,13 @@ namespace SqlMigrations.Data.Migrations.Builders
         /// <param name="scale">The numeric scale of the column.</param>
         /// <param name="unicode">Value indicating whether or not the column supports Unicode content.</param>
         /// <param name="fixedLength">Value indicating whether or not all data should be padded to the maximum length.</param>
+        /// <param name="isMaxLength">Value indicating whether or not all data should be the maximum length.</param>
         /// <param name="identity">Value indicating whether or not the database will generate values for this column during insert.</param>
         /// <param name="timestamp">Value indicating whether or not this column should be configured as a timestamp.</param>
         /// <param name="name">The name of the column.</param>
         /// <param name="storeType">Provider specific data type to use for this column.</param>
         /// <returns>The column definition.</returns>
-        private static ColumnModel BuildColumn(Type clrType, bool? nullable, object defaultValue, string defaultValueSql = null, int? maxLength = null, byte? precision = null, byte? scale = null, bool? unicode = null, bool? fixedLength = null, bool identity = false, bool timestamp = false, string name = null, string storeType = null)
+        private static ColumnModel BuildColumn(Type clrType, bool? nullable, object defaultValue, string defaultValueSql = null, int? maxLength = null, byte? precision = null, byte? scale = null, bool? unicode = null, bool? fixedLength = null, bool? isMaxLength = null, bool identity = false, bool timestamp = false, string name = null, string storeType = null)
         {
             return new ColumnModel(clrType)
             {
@@ -276,6 +292,7 @@ namespace SqlMigrations.Data.Migrations.Builders
                 Scale = scale,
                 IsUnicode = unicode,
                 IsFixedLength = fixedLength,
+                IsMaxLength = isMaxLength,
                 IsIdentity = identity,
                 DefaultValue = defaultValue,
                 DefaultValueSql = defaultValueSql,

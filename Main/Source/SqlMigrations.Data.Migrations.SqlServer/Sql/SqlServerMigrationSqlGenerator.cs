@@ -4,7 +4,9 @@
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
+    using System.Xml;
     using System.Xml.Linq;
 
     using NLib;
@@ -22,13 +24,19 @@
 
         public override IEnumerable<MigrationStatement> Generate(IEnumerable<MigrationOperation> migrationOperations, string providerManifestToken, Version databaseVersion)
         {
+            if (databaseVersion < new Version(10, 0))
+            {
+                throw new NotSupportedException(string.Format("This provider support SQL Server 2008 to latest version only. The current database version is {0}.", databaseVersion));
+            }
+
             this.typeMapping = new Dictionary<string, string>
                 {
                     { typeof(byte).Name, "tinyint" },
                     { typeof(byte[]).Name, "varbinary" },
                     { typeof(bool).Name, "bit" },
-                    { typeof(char).Name, "char" },
-                    { typeof(DateTime).Name, "datetime" },
+                    { typeof(char).Name, "nchar" },
+                    { typeof(DateTime).Name, "datetime2" },
+                    { typeof(DateTimeOffset).Name, "datetime2" },
                     { typeof(decimal).Name, "decimal" },
                     { typeof(double).Name, "float" },
                     { typeof(float).Name, "real" },
@@ -38,17 +46,11 @@
                     { typeof(object).Name, "sql_variant" },
                     { typeof(short).Name, "smallint" },
                     { typeof(string).Name, "nvarchar" },
+                    { typeof(TimeSpan).Name, "time" },
                     { typeof(XDocument).Name, "xml" }
 
                     // etc... http://msdn.microsoft.com/en-us/library/cc716729.aspx
                 };
-
-            if (databaseVersion >= new Version(9, 0))
-            {
-                this.typeMapping[typeof(DateTime).Name] = "datetime2";
-                this.typeMapping[typeof(DateTimeOffset).Name] = "datetimeoffset";
-                this.typeMapping[typeof(TimeSpan).Name] = "time";
-            }
 
             foreach (var operation in migrationOperations)
             {
@@ -127,16 +129,53 @@
         {
             writer.Write(this.Quote(column.Name));
 
-            writer.Write(" " + this.Quote(this.typeMapping[column.ClrType.Name]));
+            if (!string.IsNullOrWhiteSpace(column.StoreType))
+            {
+                writer.Write(" " + this.Quote(column.StoreType));
+            }
+            else if ((column.ClrType == typeof(string) || column.ClrType == typeof(char)) && column.IsUnicode.HasValue && !column.IsUnicode.Value)
+            {
+                writer.Write(" " + this.Quote(this.typeMapping[column.ClrType.Name].Substring(1)));
+            }
+            else if ((column.ClrType == typeof(string) || column.ClrType == typeof(byte[])) && column.IsFixedLength.HasValue && column.IsFixedLength.Value)
+            {
+                // NOTE String can be non-unicode and fixed length.
+                writer.Write(" " + this.Quote(this.typeMapping[column.ClrType.Name].Replace("var", string.Empty)));
+            }
+            else
+            {
+                writer.Write(" " + this.Quote(this.typeMapping[column.ClrType.Name]));
+            }
 
-            if (column.ClrType == typeof(string))
+            if (column.ClrType == typeof(DateTime) || column.ClrType == typeof(DateTimeOffset) || column.ClrType == typeof(TimeSpan))
+            {
+                writer.Write("(" + (column.Precision.HasValue ? column.Precision.Value.ToString(CultureInfo.InvariantCulture) : "7") + ")");
+            }
+            else if (column.ClrType == typeof(decimal))
+            {
+                writer.Write("(" + (column.Precision.HasValue ? column.Precision.Value.ToString(CultureInfo.InvariantCulture) : "38") + ", " + (column.Scale.HasValue ? column.Scale.Value.ToString(CultureInfo.InvariantCulture) : "8") + " )");
+            }
+            else if (column.ClrType == typeof(string) || column.ClrType == typeof(byte[]))
             {
                 writer.Write("(" + (column.MaxLength.HasValue ? column.MaxLength.Value.ToString(CultureInfo.InvariantCulture) : "MAX") + ")");
             }
+            // Note Check IsMaxLength
 
             if (column.IsIdentity)
             {
-                writer.Write(" IDENTITY(1, 1)");
+                writer.Write(column.ClrType == typeof(Guid)
+                    ? " DEFAULT NEWSEQUENTIALID()"
+                    : " IDENTITY(1, 1)");
+            }
+
+            if (column.DefaultValue != null)
+            {
+                writer.Write(" DEFAULT '" + column.DefaultValue + "'");
+            }
+
+            if (column.DefaultValueSql != null)
+            {
+                writer.Write(" DEFAULT " + column.DefaultValueSql);
             }
 
             if (!column.IsNullable.HasValue || column.IsNullable.Value)
